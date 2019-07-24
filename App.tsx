@@ -1,7 +1,9 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { YellowBox } from "react-native";
 import AppNavigator from "./src/navigation/AppNavigator";
 import GlobalContextProvider from "./src/context/GlobalContextProvider";
+
+YellowBox.ignoreWarnings(["Warning: componentWillUpdate is deprecated"]);
 
 const App = () => {
   return (
@@ -10,7 +12,5 @@ const App = () => {
     </GlobalContextProvider>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;

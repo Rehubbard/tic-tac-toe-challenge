@@ -14,14 +14,17 @@ export type GlobalContextType = {
 type Props = {};
 
 class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
-  updateBoard = (boardPosition: number) => {
+  updateBoard = (newBoardPosition: number) => {
     this.setState(state => ({
       board: state.board.map((value, index) => {
-        if (index !== boardPosition) return value;
+        if (index === newBoardPosition) {
+          if (value !== null) return value; // player has already played here. skip
 
-        // figure out what player to add to this board position
-        const currentPlayer = state.players[state.turn % 2];
-        return currentPlayer;
+          // figure out what player to add to this board position
+          const currentPlayer = state.players[state.turn % 2];
+          return currentPlayer;
+        }
+        return value;
       }),
       turn: state.turn + 1
     }));
@@ -34,6 +37,7 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     updateBoard: this.updateBoard
   };
   render() {
+    console.log("GlobalContext: ", this.state);
     return (
       <GlobalContext.Provider value={this.state}>
         {this.props.children}

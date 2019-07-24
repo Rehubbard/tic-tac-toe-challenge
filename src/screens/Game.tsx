@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { SafeAreaView, NavigationScreenProps } from "react-navigation";
 
@@ -14,77 +14,29 @@ import { GlobalContext } from "../context/GlobalContextProvider";
 
 type Props = {} & NavigationScreenProps;
 
-class Game extends React.Component<Props> {
-  onSquarePress = (square: number) => {};
+const Game: React.FunctionComponent<Props> = props => {
+  const { board, updateBoard } = useContext(GlobalContext);
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.board}>
-          <View style={[styles.verticalBoardLine, styles.firstVertical]} />
-          <View style={[styles.verticalBoardLine, styles.secondVertical]} />
-          <View style={[styles.horizontalBoardLine, styles.firstHorizontal]} />
-          <View style={[styles.horizontalBoardLine, styles.secondHorizontal]} />
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.board}>
+        <View style={[styles.verticalBoardLine, styles.firstVertical]} />
+        <View style={[styles.verticalBoardLine, styles.secondVertical]} />
+        <View style={[styles.horizontalBoardLine, styles.firstHorizontal]} />
+        <View style={[styles.horizontalBoardLine, styles.secondHorizontal]} />
 
+        {board.map((boardSquare, index) => (
           <TouchableOpacity
-            onPress={() => this.onSquarePress(0)}
+            onPress={() => updateBoard(index)}
             style={styles.square}
           >
-            <Text>X</Text>
+            {boardSquare !== null && <Text>{boardSquare}</Text>}
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(1)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(2)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(3)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(4)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(5)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(6)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(7)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.onSquarePress(8)}
-            style={styles.square}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    );
-  }
-}
+        ))}
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

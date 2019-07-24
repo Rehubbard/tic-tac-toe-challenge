@@ -109,7 +109,6 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     resetBoard: this.resetBoard
   };
   render() {
-    console.log("GlobalContext: ", this.state);
     return (
       <GlobalContext.Provider value={this.state}>
         {this.props.children}

@@ -19,7 +19,6 @@ class Drawer extends React.Component<Props> {
   };
 
   render() {
-    console.log(this.props.activeItemKey);
     return (
       <SafeAreaView style={styles.container} forceInset={{ top: "always" }}>
         <TouchableOpacity

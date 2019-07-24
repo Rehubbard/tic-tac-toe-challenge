@@ -4,16 +4,17 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { withNavigation, NavigationInjectedProps } from "react-navigation";
 
 import Text from "./Text";
+import globalColors from "../styles/globalColors";
 
 type Props = {} & NavigationInjectedProps;
 
 const HeaderRight: React.FunctionComponent<Props> = props => (
-  <TouchableOpacity
+              <TouchableOpacity
     onPress={() => props.navigation.toggleDrawer()}
-    style={{ marginHorizontal: 10 }}
+    style={{ marginRight: 20 }}
     hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}
   >
-    <Icon name="bars" color="black" size={18} />
+    <Icon name="bars" color={globalColors.black} size={20} />
   </TouchableOpacity>
 );
 

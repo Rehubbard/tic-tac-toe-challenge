@@ -43,7 +43,7 @@ const Game: React.FunctionComponent<Props> = props => {
             <Text style={styles.winnerDescription}>
               {winner !== null
                 ? `${winner}'s go first next game`
-                : "The last player that won goes first. If nobody has won, X's go first 😊"}
+                : "The last player that won goes first."}
             </Text>
           </React.Fragment>
         ) : (
@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
   },
   winnerDescription: {
     fontSize: 12,
-    paddingHorizontal: 35,
     color: globalColors.grey
   },
   boardContainer: {

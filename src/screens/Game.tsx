@@ -15,24 +15,30 @@ import { GlobalContext } from "../context/GlobalContextProvider";
 type Props = {} & NavigationScreenProps;
 
 const Game: React.FunctionComponent<Props> = props => {
-  const { board, updateBoard } = useContext(GlobalContext);
+  const { board, playersTurn, updateBoard } = useContext(GlobalContext);
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.board}>
-        <View style={[styles.verticalBoardLine, styles.firstVertical]} />
-        <View style={[styles.verticalBoardLine, styles.secondVertical]} />
-        <View style={[styles.horizontalBoardLine, styles.firstHorizontal]} />
-        <View style={[styles.horizontalBoardLine, styles.secondHorizontal]} />
+      <View style={styles.statusContainer}>
+        <Text style={styles.playersTurn}>{playersTurn}'s turn</Text>
+      </View>
+      <View style={styles.boardContainer}>
+        <View style={styles.board}>
+          <View style={[styles.verticalBoardLine, styles.firstVertical]} />
+          <View style={[styles.verticalBoardLine, styles.secondVertical]} />
+          <View style={[styles.horizontalBoardLine, styles.firstHorizontal]} />
+          <View style={[styles.horizontalBoardLine, styles.secondHorizontal]} />
 
-        {board.map((boardSquare, index) => (
-          <TouchableOpacity
-            onPress={() => updateBoard(index)}
-            style={styles.square}
-          >
-            {boardSquare !== null && <Text>{boardSquare}</Text>}
-          </TouchableOpacity>
-        ))}
+          {board.map((boardSquare, index) => (
+            <TouchableOpacity
+              onPress={() => updateBoard(index)}
+              style={styles.square}
+              key={index}
+            >
+              {boardSquare !== null && <Text>{boardSquare}</Text>}
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -40,6 +46,17 @@ const Game: React.FunctionComponent<Props> = props => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: "center"
+  },
+  statusContainer: {
+    marginTop: 30
+  },
+  playersTurn: {
+    fontSize: 32,
+    color: globalColors.black
+  },
+  boardContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center"

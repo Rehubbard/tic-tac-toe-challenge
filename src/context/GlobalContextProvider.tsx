@@ -8,7 +8,7 @@ export type GlobalContextType = {
   board: Array<null | "X" | "O">;
   turn: number;
   players: any[];
-  currentPlayer: "X" | "O";
+  playersTurn: "X" | "O";
   ended: boolean;
   winner: "X" | "O" | null;
   updateBoard: (boardPosition: number) => void;
@@ -29,12 +29,14 @@ const winningCombinations = [
 
 class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
   updateBoard = (newBoardPosition: number) => {
+    if (this.state.board[newBoardPosition] !== null) return; // not a valid play
+
     const currentPlayer = this.state.players[this.state.turn % 2];
     const newBoard = this.state.board.map((value, index) => {
       if (index === newBoardPosition) {
         if (value !== null) return value; // player has already played here. skip
 
-        // valid play\
+        // valid play
         return currentPlayer;
       }
       return value;
@@ -49,7 +51,7 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     this.setState(state => ({
       board: newBoard,
       turn: state.turn + 1,
-      currentPlayer: currentPlayer,
+      playersTurn: state.playersTurn === "X" ? "O" : "X",
       ended: weHaveAWinner ? true : state.ended,
       winner: weHaveAWinner ? currentPlayer : null
     }));
@@ -57,7 +59,7 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
 
   state: GlobalContextType = {
     players: ["X", "O"],
-    currentPlayer: "X",
+    playersTurn: "X",
     board: [null, null, null, null, null, null, null, null, null],
     turn: 0,
     ended: false,

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { SafeAreaView, NavigationScreenProps } from "react-navigation";
 
-import { Text } from "../components";
+import { Text, GameSquare } from "../components";
 import globalColors from "../styles/globalColors";
 import {
   BOARD_HEIGHT,
@@ -29,7 +29,9 @@ const Game: React.FunctionComponent<Props> = props => {
       <View style={styles.statusContainer}>
         {ended ? (
           <React.Fragment>
-            <Text style={styles.winner}>{winner}'s won!</Text>
+            <Text style={styles.winner} type="bold">
+              {winner}'s won!
+            </Text>
             <TouchableOpacity
               onPress={resetBoard}
               style={styles.playAgainButton}
@@ -43,7 +45,9 @@ const Game: React.FunctionComponent<Props> = props => {
             </Text>
           </React.Fragment>
         ) : (
-          <Text style={styles.playersTurn}>{playersTurn}'s turn</Text>
+          <Text style={styles.playersTurn} type="bold">
+            {playersTurn}'s turn
+          </Text>
         )}
       </View>
       <View style={styles.boardContainer}>
@@ -53,14 +57,12 @@ const Game: React.FunctionComponent<Props> = props => {
           <View style={[styles.horizontalBoardLine, styles.firstHorizontal]} />
           <View style={[styles.horizontalBoardLine, styles.secondHorizontal]} />
 
-          {board.map((boardSquare, index) => (
-            <TouchableOpacity
+          {board.map((squareValue, index) => (
+            <GameSquare
               onPress={() => updateBoard(index)}
-              style={styles.square}
+              squareValue={squareValue}
               key={index}
-            >
-              {boardSquare !== null && <Text>{boardSquare}</Text>}
-            </TouchableOpacity>
+            />
           ))}
         </View>
       </View>

@@ -8,12 +8,11 @@ type Props = {
 
 } & NavigationScreenProps
 
-class Game extends React.Component<Props> {
-
+class Stats extends React.Component<Props> {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text type='bold'>Game Screen</Text>
+        <Text type='bold'>Stats Screen</Text>
       </SafeAreaView>
     )
   }
@@ -25,4 +24,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Game
+export default Stats

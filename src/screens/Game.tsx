@@ -15,12 +15,36 @@ import { GlobalContext } from "../context/GlobalContextProvider";
 type Props = {} & NavigationScreenProps;
 
 const Game: React.FunctionComponent<Props> = props => {
-  const { board, playersTurn, updateBoard } = useContext(GlobalContext);
+  const {
+    board,
+    playersTurn,
+    ended,
+    winner,
+    updateBoard,
+    resetBoard
+  } = useContext(GlobalContext);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.statusContainer}>
-        <Text style={styles.playersTurn}>{playersTurn}'s turn</Text>
+        {ended ? (
+          <React.Fragment>
+            <Text style={styles.winner}>{winner}'s won!</Text>
+            <TouchableOpacity
+              onPress={resetBoard}
+              style={styles.playAgainButton}
+            >
+              <Text style={styles.playAgainButtonText} type="bold">
+                Play Again
+              </Text>
+            </TouchableOpacity>
+            <Text style={styles.winnerDescription}>
+              Winner goes first next game
+            </Text>
+          </React.Fragment>
+        ) : (
+          <Text style={styles.playersTurn}>{playersTurn}'s turn</Text>
+        )}
       </View>
       <View style={styles.boardContainer}>
         <View style={styles.board}>
@@ -50,11 +74,35 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   statusContainer: {
-    marginTop: 30
+    marginTop: 30,
+    height: 100,
+    alignItems: "center"
   },
   playersTurn: {
     fontSize: 32,
     color: globalColors.black
+  },
+  winner: {
+    fontSize: 32,
+    color: globalColors.black
+  },
+  playAgainButton: {
+    marginTop: 30,
+    marginBottom: 15,
+    backgroundColor: globalColors.green,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+    width: 225,
+    alignItems: "center"
+  },
+  playAgainButtonText: {
+    color: globalColors.white,
+    fontSize: 16
+  },
+  winnerDescription: {
+    fontSize: 12,
+    color: globalColors.grey
   },
   boardContainer: {
     flex: 1,

@@ -12,6 +12,7 @@ export type GlobalContextType = {
   ended: boolean;
   winner: "X" | "O" | null;
   updateBoard: (boardPosition: number) => void;
+  resetBoard: () => void;
 };
 
 type Props = {};
@@ -57,6 +58,21 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     }));
   };
 
+  resetBoard = () => {
+    // whoever won gets to go first next game
+    const previousWinner = this.state.winner as "O" | "X";
+    const players = previousWinner === "O" ? ["O", "X"] : ["X", "O"];
+    this.setState({
+      players,
+      playersTurn: previousWinner,
+      board: [null, null, null, null, null, null, null, null, null],
+      turn: 0,
+      ended: false,
+      winner: null,
+      updateBoard: this.updateBoard
+    });
+  };
+
   state: GlobalContextType = {
     players: ["X", "O"],
     playersTurn: "X",
@@ -64,7 +80,8 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     turn: 0,
     ended: false,
     winner: null,
-    updateBoard: this.updateBoard
+    updateBoard: this.updateBoard,
+    resetBoard: this.resetBoard
   };
   render() {
     console.log("GlobalContext: ", this.state);

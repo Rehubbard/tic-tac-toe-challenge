@@ -14,8 +14,8 @@ type Props = {} & NavigationScreenProps & DrawerItemsProps;
 
 class Drawer extends React.Component<Props> {
   navigateAndCloseDrawer = (route: string) => {
-    this.props.navigation.toggleDrawer();
-    this.props.navigation.navigate(route);
+    this.props.navigation.closeDrawer();
+    requestAnimationFrame(() => this.props.navigation.navigate(route));
   };
 
   render() {

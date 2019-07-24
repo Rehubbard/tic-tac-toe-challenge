@@ -16,7 +16,8 @@ const Text: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   baseStyles: {
-    color: "black"
+    color: "black",
+    fontSize: 14
   },
   regular: {
     fontFamily: "Roboto"

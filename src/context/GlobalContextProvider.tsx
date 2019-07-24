@@ -13,6 +13,8 @@ export type GlobalContextType = {
   winner: "X" | "O" | null;
   winningCombination: null | [number, number, number];
   previousWinner: "X" | "O";
+  xWins: number;
+  oWins: number;
   updateBoard: (boardPosition: number) => void;
   resetBoard: () => void;
 };
@@ -53,17 +55,6 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
       );
     const weHaveAWinner = winningCombination.length > 0;
 
-    console.log(
-      "Winning pattern: ",
-      winningCombinations
-        .filter(combination => combination.includes(newBoardPosition))
-        .filter(combination =>
-          combination.every(
-            winningPosition => newBoard[winningPosition] === currentPlayer // check if currentPlayer has a mark in a winning combination
-          )
-        )
-    );
-
     this.setState(state => ({
       board: newBoard,
       turn: state.turn + 1,
@@ -75,7 +66,11 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
       winningCombination: weHaveAWinner
         ? (winningCombination[0] as [number, number, number])
         : null,
-      previousWinner: weHaveAWinner ? currentPlayer : state.previousWinner
+      previousWinner: weHaveAWinner ? currentPlayer : state.previousWinner,
+      xWins:
+        weHaveAWinner && currentPlayer === "X" ? state.xWins + 1 : state.xWins,
+      oWins:
+        weHaveAWinner && currentPlayer === "O" ? state.oWins + 1 : state.oWins
     }));
   };
 
@@ -108,6 +103,8 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     winner: null,
     winningCombination: null,
     previousWinner: "X", // since X is default first, the they are default previous winner for ties
+    xWins: 0,
+    oWins: 0,
     updateBoard: this.updateBoard,
     resetBoard: this.resetBoard
   };

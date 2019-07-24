@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { SafeAreaView, NavigationScreenProps } from "react-navigation";
 
 import { Text } from "../components";
@@ -10,10 +10,13 @@ import {
   SQUARE_WIDTH,
   SQUARE_HEIGHT
 } from "../styles/globalStyles";
+import { GlobalContext } from "../context/GlobalContextProvider";
 
 type Props = {} & NavigationScreenProps;
 
 class Game extends React.Component<Props> {
+  onSquarePress = (square: number) => {};
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -23,33 +26,60 @@ class Game extends React.Component<Props> {
           <View style={[styles.horizontalBoardLine, styles.firstHorizontal]} />
           <View style={[styles.horizontalBoardLine, styles.secondHorizontal]} />
 
-          <View style={styles.square}>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(0)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(1)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(2)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(3)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(4)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(5)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(6)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(7)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
-          <View style={styles.square}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.onSquarePress(8)}
+            style={styles.square}
+          >
             <Text>X</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );

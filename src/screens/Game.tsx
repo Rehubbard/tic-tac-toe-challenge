@@ -20,6 +20,9 @@ class Game extends React.Component<Props> {
         <View style={styles.board}>
           <View style={[styles.verticalBoardLine, styles.firstVertical]} />
           <View style={[styles.verticalBoardLine, styles.secondVertical]} />
+          <View style={[styles.horizontalBoardLine, styles.firstHorizontal]} />
+          <View style={[styles.horizontalBoardLine, styles.secondHorizontal]} />
+
           <View style={styles.square}>
             <Text>X</Text>
           </View>
@@ -29,7 +32,6 @@ class Game extends React.Component<Props> {
           <View style={styles.square}>
             <Text>X</Text>
           </View>
-          <View style={styles.boardLine} />
           <View style={styles.square}>
             <Text>X</Text>
           </View>
@@ -39,7 +41,6 @@ class Game extends React.Component<Props> {
           <View style={styles.square}>
             <Text>X</Text>
           </View>
-          <View style={styles.boardLine} />
           <View style={styles.square}>
             <Text>X</Text>
           </View>
@@ -75,10 +76,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10
   },
-  boardLine: {
+  horizontalBoardLine: {
+    position: "absolute",
     height: 2,
     width: BOARD_WIDTH,
     backgroundColor: globalColors.black
+  },
+  firstHorizontal: {
+    transform: [{ translateY: BOARD_HEIGHT / 3 }]
+  },
+  secondHorizontal: {
+    transform: [{ translateY: (BOARD_HEIGHT / 3) * 2 }] // places the line at two square lengths
   },
   verticalBoardLine: {
     position: "absolute",
@@ -90,7 +98,7 @@ const styles = StyleSheet.create({
     transform: [{ translateX: BOARD_WIDTH / 3 }]
   },
   secondVertical: {
-    transform: [{ translateX: (BOARD_WIDTH / 3) * 2 }]
+    transform: [{ translateX: (BOARD_WIDTH / 3) * 2 }] // places the line at two square lengths
   }
 });
 

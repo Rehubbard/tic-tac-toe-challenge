@@ -9,7 +9,7 @@ import globalColors from "../styles/globalColors";
 type Props = {} & NavigationInjectedProps;
 
 const HeaderRight: React.FunctionComponent<Props> = props => (
-              <TouchableOpacity
+  <TouchableOpacity
     onPress={() => props.navigation.toggleDrawer()}
     style={{ marginRight: 20 }}
     hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}

@@ -12,7 +12,7 @@ class Drawer extends React.Component<Props> {
   render() {
     return (
       <SafeAreaView style={styles.container} forceInset={{ top: "always" }}>
-          <TouchableOpacity style={styles.drawerItem} onPress={onPress}>
+        <TouchableOpacity style={styles.drawerItem} onPress={onPress}>
           <Text style={styles.drawerLink}>{label}</Text>
           {hasArrow && (
             <Icon

@@ -8,16 +8,24 @@ import { GlobalContext } from "../context/GlobalContextProvider";
 
 type Props = {
   squareValue: "X" | "O" | null;
+  squarePosition: number;
   onPress: () => void;
 };
 
 const GameSquare: React.FunctionComponent<Props> = ({
   onPress,
-  squareValue
+  squareValue,
+  squarePosition
 }) => {
-  const { ended } = useContext(GlobalContext);
+  const { ended, winningCombination } = useContext(GlobalContext);
+  const squareIsAWinner =
+    winningCombination !== null && winningCombination.includes(squarePosition);
   return (
-    <TouchableOpacity onPress={onPress} style={styles.square} disabled={ended}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.square, squareIsAWinner && styles.winningSquare]}
+      disabled={ended}
+    >
       {squareValue !== null && (
         <Icon
           name={squareValue === "X" ? "times" : "circle-o"}
@@ -37,6 +45,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 10
+  },
+  winningSquare: {
+    backgroundColor: globalColors.lightestGreen
   }
 });
 

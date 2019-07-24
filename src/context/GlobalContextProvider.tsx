@@ -11,6 +11,7 @@ export type GlobalContextType = {
   playersTurn: "X" | "O";
   ended: boolean;
   winner: "X" | "O" | null;
+  winningCombination: null | [number, number, number];
   previousWinner: "X" | "O";
   updateBoard: (boardPosition: number) => void;
   resetBoard: () => void;
@@ -43,13 +44,25 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
       }
       return value;
     });
-    const weHaveAWinner = winningCombinations
+    const winningCombination = winningCombinations
       .filter(combination => combination.includes(newBoardPosition))
-      .some(combination =>
+      .filter(combination =>
         combination.every(
           winningPosition => newBoard[winningPosition] === currentPlayer // check if currentPlayer has a mark in a winning combination
         )
       );
+    const weHaveAWinner = winningCombination.length > 0;
+
+    console.log(
+      "Winning pattern: ",
+      winningCombinations
+        .filter(combination => combination.includes(newBoardPosition))
+        .filter(combination =>
+          combination.every(
+            winningPosition => newBoard[winningPosition] === currentPlayer // check if currentPlayer has a mark in a winning combination
+          )
+        )
+    );
 
     this.setState(state => ({
       board: newBoard,
@@ -59,6 +72,9 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
         ? true
         : newBoard.every(boardValue => boardValue !== null), // if no null value is left, all squares have been taken. game over
       winner: weHaveAWinner ? currentPlayer : null,
+      winningCombination: weHaveAWinner
+        ? (winningCombination[0] as [number, number, number])
+        : null,
       previousWinner: weHaveAWinner ? currentPlayer : state.previousWinner
     }));
   };
@@ -78,6 +94,7 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
       turn: 0,
       ended: false,
       winner: null,
+      winningCombination: null,
       updateBoard: this.updateBoard
     });
   };
@@ -89,6 +106,7 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     turn: 0,
     ended: false,
     winner: null,
+    winningCombination: null,
     previousWinner: "X", // since X is default first, the they are default previous winner for ties
     updateBoard: this.updateBoard,
     resetBoard: this.resetBoard

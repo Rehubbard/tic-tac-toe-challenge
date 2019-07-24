@@ -63,6 +63,7 @@ const Game: React.FunctionComponent<Props> = props => {
             <GameSquare
               onPress={() => updateBoard(index)}
               squareValue={squareValue}
+              squarePosition={index}
               key={index}
             />
           ))}
@@ -130,6 +131,8 @@ const styles = StyleSheet.create({
     padding: 10
   },
   horizontalBoardLine: {
+    zIndex: 9,
+    elevation: 9,
     position: "absolute",
     height: 2,
     width: BOARD_WIDTH,
@@ -142,6 +145,8 @@ const styles = StyleSheet.create({
     transform: [{ translateY: (BOARD_HEIGHT / 3) * 2 }] // places the line at two square lengths
   },
   verticalBoardLine: {
+    zIndex: 9,
+    elevation: 9,
     position: "absolute",
     height: BOARD_HEIGHT,
     width: 2,

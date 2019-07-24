@@ -30,7 +30,7 @@ const Game: React.FunctionComponent<Props> = props => {
         {ended ? (
           <React.Fragment>
             <Text style={styles.winner} type="bold">
-              {winner}'s won!
+              {winner !== null ? `${winner}'s won!` : `It's a tie!`}
             </Text>
             <TouchableOpacity
               onPress={resetBoard}
@@ -41,7 +41,9 @@ const Game: React.FunctionComponent<Props> = props => {
               </Text>
             </TouchableOpacity>
             <Text style={styles.winnerDescription}>
-              Winner goes first next game
+              {winner !== null
+                ? `${winner}'s go first next game`
+                : "The last player that won goes first. If nobody has won, X's go first 😊"}
             </Text>
           </React.Fragment>
         ) : (
@@ -76,16 +78,17 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   statusContainer: {
-    marginTop: 30,
-    height: 100,
-    alignItems: "center"
+    marginTop: 25,
+    height: 150,
+    alignItems: "center",
+    justifyContent: "center"
   },
   playersTurn: {
-    fontSize: 32,
+    fontSize: 34,
     color: globalColors.black
   },
   winner: {
-    fontSize: 32,
+    fontSize: 34,
     color: globalColors.black
   },
   playAgainButton: {
@@ -104,6 +107,7 @@ const styles = StyleSheet.create({
   },
   winnerDescription: {
     fontSize: 12,
+    paddingHorizontal: 35,
     color: globalColors.grey
   },
   boardContainer: {

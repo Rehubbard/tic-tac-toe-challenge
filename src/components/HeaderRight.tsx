@@ -14,7 +14,7 @@ const HeaderRight: React.FunctionComponent<Props> = props => (
     style={{ marginRight: 20 }}
     hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}
   >
-    <Icon name="bars" color={globalColors.black} size={20} />
+    <Icon name="bars" color={globalColors.green} size={20} />
   </TouchableOpacity>
 );
 

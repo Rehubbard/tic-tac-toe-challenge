@@ -11,6 +11,7 @@ export type GlobalContextType = {
   playersTurn: "X" | "O";
   ended: boolean;
   winner: "X" | "O" | null;
+  previousWinner: "X" | "O";
   updateBoard: (boardPosition: number) => void;
   resetBoard: () => void;
 };
@@ -49,22 +50,30 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
           winningPosition => newBoard[winningPosition] === currentPlayer // check if currentPlayer has a mark in a winning combination
         )
       );
+
     this.setState(state => ({
       board: newBoard,
       turn: state.turn + 1,
       playersTurn: state.playersTurn === "X" ? "O" : "X",
-      ended: weHaveAWinner ? true : state.ended,
-      winner: weHaveAWinner ? currentPlayer : null
+      ended: weHaveAWinner
+        ? true
+        : newBoard.every(boardValue => boardValue !== null), // if no null value is left, all squares have been taken. game over
+      winner: weHaveAWinner ? currentPlayer : null,
+      previousWinner: weHaveAWinner ? currentPlayer : state.previousWinner
     }));
   };
 
   resetBoard = () => {
     // whoever won gets to go first next game
-    const previousWinner = this.state.winner as "O" | "X";
-    const players = previousWinner === "O" ? ["O", "X"] : ["X", "O"];
+    // if it was a tie, the last winner goes first
+    const winnerWhoGoesFirst =
+      this.state.winner !== null
+        ? this.state.winner
+        : this.state.previousWinner;
+    const players = winnerWhoGoesFirst === "O" ? ["O", "X"] : ["X", "O"];
     this.setState({
       players,
-      playersTurn: previousWinner,
+      playersTurn: winnerWhoGoesFirst,
       board: [null, null, null, null, null, null, null, null, null],
       turn: 0,
       ended: false,
@@ -80,6 +89,7 @@ class GlobalContextProvider extends React.Component<Props, GlobalContextType> {
     turn: 0,
     ended: false,
     winner: null,
+    previousWinner: "X", // since X is default first, the they are default previous winner for ties
     updateBoard: this.updateBoard,
     resetBoard: this.resetBoard
   };
